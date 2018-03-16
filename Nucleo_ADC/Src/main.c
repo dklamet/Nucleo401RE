@@ -45,7 +45,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
-
+//static GPIO_InitTypeDef  GPIO_InitStruct;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -95,21 +95,32 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
+  
+  
+  
+  
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+//  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_PULLUP;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+
+  /* -3- Toggle PA05 IO in an infinite loop */  
+HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
   while (1)
   {
-
-  /* USER CODE END WHILE */
-
-  /* USER CODE BEGIN 3 */
-
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6);
+    //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+    
+    /* Insert delay 100 ms */
+    HAL_Delay(500);
   }
-  /* USER CODE END 3 */
 
 }
 
@@ -229,7 +240,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PA5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
